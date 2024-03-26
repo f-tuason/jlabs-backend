@@ -1,28 +1,30 @@
 const express = require('express');
 const cors = require('cors');
 const mongoDB = require('./helpers/mongodb');
+const JWTHandler = require('./helpers/jwt_handler');
+const Auth = require('./auth/authModel');
 
 mongoDB.connect();
 
-const PORT = 5173;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors({
     origin: ["http://localhost:5173"],
-    methods: ["GET"],
-    credentials: true
+    methods: ["GET", "POST"],
+    credentials: false
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.get('', () => {
-    
-// })
+app.get('/ip', async (req, res) => {
+    res.json({ msg: Okay })
+})
 
-// app.get('', () => {
-    
-// })
+app.post('/login', async (req, res) => {
+    res.json({ msg: Okay })
+})
 
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
